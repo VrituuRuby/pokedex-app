@@ -1,0 +1,32 @@
+html, body, *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    background: #e2e3f5;
+}
+
+.container{
+    height: 100vh;
+    max-width: 992px;
+    margin: 0 auto;
+}
+
+.container header{
+    background: #ec370a;
+    color: white;
+    padding: 1rem;
+}
+
+/* .cardsContainer{
+    width: 100%;
+    display: flex;
+}
+
+.card{
+    background-color: white;
+    width: 25%;
+} */
