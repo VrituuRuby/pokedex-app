@@ -1,16 +1,16 @@
-import axios from "axios"
-import { ReactNode } from "react"
 import { PokemonCard } from "./PokemonCard"
-
-interface CardsContainerProps{
-    pokemonList: ReactNode[]
+interface pokemonUrl{
+    name: string;
+    url: string;
 }
 
-export function CardsContainer(props:CardsContainerProps){
+export function CardsContainer(
+    { pokemonList } : { pokemonList : pokemonUrl[] }
+    ){
     return (
         <div className='cardsContainer'>
             {
-                props.pokemonList.map((p: any) =>(
+                pokemonList.map((p: pokemonUrl) =>(
                     <PokemonCard pokemon={p} key={p.name}/>
                 ))
             }

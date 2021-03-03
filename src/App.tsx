@@ -3,23 +3,31 @@ import { useEffect, useState } from 'react';
 import { CardsContainer } from './components/CardsContainer';
 import './styles/global.css';
 
+interface pokemonListInterface{
+  results: [
+    {
+      name: string;
+      url: string;
+    }
+  ]
+}
+
+
 export function App() {
-  const [pokemonList, setPokemonList] = useState([{name: 'Loading...'}])
+  const [pokemonList, setPokemonList] = useState<pokemonListInterface>({results: [{name: '', url: ''}]})
 
   useEffect(() =>{
     axios.get('https://pokeapi.co/api/v2/pokemon').then(res => {
-      setPokemonList(res.data.results)
+      setPokemonList(res.data)
     })
-  }, [])
-
-  console.log(pokemonList)
+  }, [pokemonList])
 
   return (
     <div className='container'>
       <header>
         <h1>Pokedex App - React JS</h1>
       </header>
-      <CardsContainer pokemonList={pokemonList}/>
+      <CardsContainer pokemonList={pokemonList?.results}/>
     </div>
   );
 }
