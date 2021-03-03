@@ -20,7 +20,7 @@ export function App() {
     axios.get('https://pokeapi.co/api/v2/pokemon').then(res => {
       setPokemonList(res.data)
     })
-  }, [pokemonList])
+  }, [])
 
   return (
     <div className='container'>

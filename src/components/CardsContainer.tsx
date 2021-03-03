@@ -1,4 +1,6 @@
-import { PokemonCard } from "./PokemonCard"
+import React from "react";
+import { PokemonCard } from './PokemonCard'
+
 interface pokemonUrl{
     name: string;
     url: string;

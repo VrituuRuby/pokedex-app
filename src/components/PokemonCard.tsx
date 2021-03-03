@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { PokemonType } from "./PokemonType";
 
 interface PokemonCardProps{
     pokemon: {
@@ -17,25 +18,36 @@ interface pokemonUrl{
                 front_default: string;
             }
         },
-        versions: {
-            'generation-v':{
-                'black-white': {
-                    animated: {
-                        front_default: string;
-                    }
-                }
-            }
-        }
     },
     types: [
         {
             name: string;
+            url: string;
         }
     ]
 }
 
 export function PokemonCard(props: PokemonCardProps){
-    const [pokemonData, setPokemonData] = useState<pokemonUrl>()
+    const [pokemonData, setPokemonData] = useState<pokemonUrl>(
+        {
+            name: '',
+            sprites: {
+                front_default: '',
+                other: {
+                    'official-artwork': {
+                        front_default: '',
+                    }
+                },
+            },
+            types: [
+                {
+                    name: '',
+                    url: '',
+                }
+            ]
+        }
+    )
+
 
     function getPokemonData(url: string){
         axios.get(url).then(res => {
@@ -43,10 +55,11 @@ export function PokemonCard(props: PokemonCardProps){
         })
     }
 
-
     useEffect(() => {
         getPokemonData(props.pokemon.url)
-    }, [props.pokemon.url])
+    }, [])
+
+    console.log(pokemonData)
 
     return(
         <div className="card">
@@ -57,6 +70,7 @@ export function PokemonCard(props: PokemonCardProps){
                 } 
                 alt={pokemonData?.name}
             />
+            <PokemonType PokemonTypes={pokemonData?.types}/>
         </div>
     )
 }
