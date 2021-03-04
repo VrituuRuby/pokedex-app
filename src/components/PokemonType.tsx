@@ -1,14 +1,20 @@
 
 interface TypeInterface{
-    name: string;
-    url: string;
+    slot: number,
+    type: { name: string }
+    
 }
 
-export function PokemonType({ PokemonTypes } : { PokemonTypes : Array<TypeInterface>}){
+export function PokemonType({ PokemonTypes } : { PokemonTypes : TypeInterface[]}){
     return(
         <div className='typeContainer'>{
-            PokemonTypes.map((t : TypeInterface) => (
-                    <span className={t.name} key={t.name}>{t.name}</span>
+            PokemonTypes?.map((t : TypeInterface) => (
+                    <span 
+                        className={t.type.name} 
+                        key={t.slot}
+                    >
+                        {t.type.name}
+                    </span>
                 ))
             }
         </div>

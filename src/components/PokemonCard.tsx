@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { PokemonType } from "./PokemonType";
 
 interface PokemonCardProps{
-    pokemon: {
-        name: string;
-        url: string;
-    }
+    name: string;
+    url: string;
 }
 
 interface pokemonUrl{
@@ -20,34 +18,15 @@ interface pokemonUrl{
         },
     },
     types: [
-        {
-            name: string;
-            url: string;
+        index: {
+            slot: number,
+            type: { name: string }
         }
     ]
 }
 
-export function PokemonCard(props: PokemonCardProps){
-    const [pokemonData, setPokemonData] = useState<pokemonUrl>(
-        {
-            name: '',
-            sprites: {
-                front_default: '',
-                other: {
-                    'official-artwork': {
-                        front_default: '',
-                    }
-                },
-            },
-            types: [
-                {
-                    name: '',
-                    url: '',
-                }
-            ]
-        }
-    )
-
+export function PokemonCard({ pokemon } : { pokemon : PokemonCardProps }){
+    const [pokemonData, setPokemonData] = useState<pokemonUrl>()
 
     function getPokemonData(url: string){
         axios.get(url).then(res => {
@@ -56,21 +35,22 @@ export function PokemonCard(props: PokemonCardProps){
     }
 
     useEffect(() => {
-        getPokemonData(props.pokemon.url)
+        getPokemonData(pokemon.url)
     }, [])
 
-    console.log(pokemonData)
+    console.log(pokemonData?.types)
 
     return(
         <div className="card">
-            <strong>{props.pokemon.name.toUpperCase()}</strong>
+            <strong>{pokemon.name.toUpperCase()}</strong>
             <img 
                 src={
                     pokemonData?.sprites?.other["official-artwork"].front_default
                 } 
                 alt={pokemonData?.name}
             />
-            <PokemonType PokemonTypes={pokemonData?.types}/>
+            {pokemonData && (<PokemonType PokemonTypes={pokemonData?.types} />)}
+            
         </div>
     )
 }

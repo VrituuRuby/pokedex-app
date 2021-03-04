@@ -14,8 +14,8 @@ interface pokemonListInterface{
 
 
 export function App() {
-  const [pokemonList, setPokemonList] = useState<pokemonListInterface>({results: [{name: '', url: ''}]})
-
+  const [pokemonList, setPokemonList] = useState<pokemonListInterface>(
+    {results: [{name: '', url: ''}]})
   useEffect(() =>{
     axios.get('https://pokeapi.co/api/v2/pokemon').then(res => {
       setPokemonList(res.data)
