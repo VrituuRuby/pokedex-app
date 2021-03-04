@@ -7,13 +7,13 @@ interface TypeInterface{
 
 export function PokemonType({ PokemonTypes } : { PokemonTypes : TypeInterface[]}){
     return(
-        <div className='typeContainer'>{
+        <div>{
             PokemonTypes?.map((t : TypeInterface) => (
                     <span 
                         className={t.type.name} 
                         key={t.slot}
                     >
-                        {t.type.name}
+                        {t.type.name.toUpperCase()}
                     </span>
                 ))
             }
