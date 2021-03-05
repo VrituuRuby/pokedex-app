@@ -1,8 +1,9 @@
 
+import '../styles/pokemonTypes.css';
+
 interface TypeInterface{
     slot: number,
     type: { name: string }
-    
 }
 
 export function PokemonType({ PokemonTypes } : { PokemonTypes : TypeInterface[]}){

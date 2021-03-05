@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { CardsContainer } from './components/CardsContainer';
+import PokemonModal from './components/PokemonModal';
 import './styles/global.css';
 
 interface pokemonListInterface{
@@ -16,9 +17,11 @@ interface pokemonListInterface{
 export function App() {
   const [pokemonList, setPokemonList] = useState<pokemonListInterface>(
     {results: [{name: '', url: ''}]})
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() =>{
     axios.get('https://pokeapi.co/api/v2/pokemon').then(res => {
       setPokemonList(res.data)
+      setIsLoading(false)
     })
   }, [])
 
@@ -28,6 +31,7 @@ export function App() {
         <h1>Pokedex App - React JS</h1>
       </header>
       <CardsContainer pokemonList={pokemonList?.results}/>
+      <PokemonModal />
     </div>
   );
 }

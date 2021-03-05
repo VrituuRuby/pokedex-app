@@ -1,6 +1,8 @@
 import React from "react";
 import { PokemonCard } from './PokemonCard'
 
+import '../styles/cards.css'
+
 interface pokemonUrl{
     name: string;
     url: string;
