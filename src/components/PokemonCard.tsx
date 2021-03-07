@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PokemonContext, PokemonDataProvider } from "../contexts/PokemonContext";
 import { PokemonType } from "./PokemonType";
 
 interface PokemonCardProps{
@@ -7,7 +8,7 @@ interface PokemonCardProps{
     url: string;
 }
 
-interface pokemonUrl{
+export interface pokemonUrl{
     name: string;
     sprites: {
         front_default: string;
@@ -34,8 +35,11 @@ interface pokemonUrl{
     ]
 }
 
+
 export function PokemonCard({ pokemon } : { pokemon : PokemonCardProps }){
     const [pokemonData, setPokemonData] = useState<pokemonUrl>()
+
+    const { setCurrentPokemonData, setIsModalOpen, setIsLoading } = useContext(PokemonContext)
 
     function getPokemonData(url: string){
         axios.get(url).then(res => {
@@ -47,10 +51,13 @@ export function PokemonCard({ pokemon } : { pokemon : PokemonCardProps }){
         getPokemonData(pokemon.url)
     }, [])
 
-    console.log(pokemonData?.types)
 
     return(
-        <div className="card">
+        <button className="card" onClick={() => {
+                setCurrentPokemonData(pokemonData)
+                setIsModalOpen(true)
+            }
+        }>
             <strong>{pokemon.name.toUpperCase()}</strong>
             <img 
                 src={
@@ -60,6 +67,6 @@ export function PokemonCard({ pokemon } : { pokemon : PokemonCardProps }){
             />
             {pokemonData && (<PokemonType PokemonTypes={pokemonData?.types} />)}
             
-        </div>
+        </button>
     )
 }
