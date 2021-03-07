@@ -9,6 +9,7 @@ interface PokemonCardProps{
 }
 
 export interface pokemonUrl{
+    id: number;
     name: string;
     sprites: {
         front_default: string;
@@ -55,10 +56,11 @@ export function PokemonCard({ pokemon } : { pokemon : PokemonCardProps }){
     return(
         <button className="card" onClick={() => {
                 setCurrentPokemonData(pokemonData)
+                setIsLoading(true)
                 setIsModalOpen(true)
             }
         }>
-            <strong>{pokemon.name.toUpperCase()}</strong>
+            <strong>{pokemon.name}</strong>
             <img 
                 src={
                     pokemonData?.sprites?.other["official-artwork"].front_default

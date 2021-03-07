@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { CardsContainer } from './components/CardsContainer';
-import PokemonModal from './components/PokemonModal';
 import { PokemonContext, PokemonDataProvider } from './contexts/PokemonContext';
 import './styles/global.css';
 
@@ -22,7 +21,7 @@ export function App() {
   const { isModalOpen } = useContext(PokemonContext)
 
   useEffect(() =>{
-    axios.get('https://pokeapi.co/api/v2/pokemon').then(res => {
+    axios.get('https://pokeapi.co/api/v2/pokemon?offset=1100&limit=20').then(res => {
       setPokemonList(res.data)
     })
   }, [])
